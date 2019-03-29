@@ -10,8 +10,11 @@
 <body>
 
     <button id="html">text/html</button>
-
+    <code>This sends a response of "new text" (including quotes)</code>
+    <br />
+    <br />
     <button id="plain">text/plain</button>
+    <code>This sends a .txt file as response with context "this is a new file" (including quotes)</code>
 
     <script language="javascript">
         document.getElementById('plain').onclick = function() {
@@ -34,7 +37,7 @@
                 }
             };
 
-            httpRequest.open('GET', '/html.txt', true);
+            httpRequest.open('GET', '/htmlresp', true);
             httpRequest.send();
         }
 
