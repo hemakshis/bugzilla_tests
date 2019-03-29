@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bug 1284488</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/hemakshis/bugzilla_tests/master/favicon.ico"/>
+    <title>Bug: 1284488</title>
 </head>
 <body>
-    <p>Bug 1284488</p>
-    <script type="text/javascript" language="javascript">
+    <button onclick="postjson()">POST JSON</button>
 
+    <script language="javascript">
+        const data = {
+            a: ['1', '2', '3'],
+            b: [],
+            c: {apple: 1, oranges: 2, d: {}},
+            e: {}
+        };
+
+        function postjson() {
+            let httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.status === 200 && httpRequest.readyState === 4) {
+                    console.log(httpRequest.responseText);
+                }
+            };
+
+            httpRequest.open('POST', '/bug/1284488', true);
+            httpRequest.setRequestHeader('Content-Type', 'application/json');
+            httpRequest.send(JSON.stringify(data));
+        }
     </script>
 </body>
 </html>

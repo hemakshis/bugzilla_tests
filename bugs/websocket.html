@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="https://raw.githubusercontent.com/hemakshis/bugzilla_tests/master/favicon.ico"/>
+    <title>WebSocket</title>
+</head>
+<body>
+    <form>
+        <input id="input" type="text" />
+        <button type="submit">Send</button>
+    </form>
+
+    <script language="javascript">
+        let sock = new WebSocket('ws://localhost:5001');
+        sock.onopen = function() {
+            sock.send("Connected");
+        };
+
+        sock.onmessage = function(e) {
+            console.log(e);
+        }
+
+        document.querySelector('form').onsubmit = function(e) {
+            e.preventDefault();
+            sock.send(document.querySelector('input').value);
+        }
+    </script>
+</body>
+</html>
