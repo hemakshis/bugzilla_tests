@@ -29,7 +29,7 @@ app.get('/bugs/:id', (req, res) => {
     res.sendFile(__dirname + '/bugs/' + req.params.id + '.html');
 })
 
-app.post('/bugs/1284488', (req, res) => {
+app.post('/bug/1284488', (req, res) => {
     const data = {
         a: ['1', '2', '3'],
         b: [],
@@ -38,6 +38,10 @@ app.post('/bugs/1284488', (req, res) => {
     };
     res.json(data);
 });
+
+app.post('/bug/1542172', (req, res) => {
+    res.json({success: 'success'});
+})
 
 app.listen(PORT, () => {
     console.log("Server listening in port", PORT);
