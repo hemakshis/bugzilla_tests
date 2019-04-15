@@ -8,15 +8,19 @@
     <title>Bug: 1542172</title>
 </head>
 <body>
+    Test for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1542172">Bug 1542172</a>
+    <br />
+    <br />
     <button onclick="postjson()">POST JSON</button>
 
     <script language="javascript">
-        data = getData();
-
+        let data;
+        getData();
         function getData() {
             let httpRequest = new XMLHttpRequest();
             httpRequest.responseType = "json";
             httpRequest.onreadystatechange = function () {
+                console.log("Fetching...");
                 if (httpRequest.status === 200 && httpRequest.readyState === 4) {
                     data = httpRequest.response;
                     console.log("Got Data. Ready to send", data);
@@ -24,17 +28,19 @@
             };
             httpRequest.open('GET', 'http://api.nobelprize.org/v1/prize.json', true);
             httpRequest.send('');
-            return httpRequest.response;
         }
 
         function postjson() {
+            const count = 10;
+            for (let i = 0; i < count; i++) {
+                data[`prizes${i}`] = data.prizes;
+            }
             let httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.status === 200 && httpRequest.readyState === 4) {
                     console.log(httpRequest.response);
                 }
             };
-
             httpRequest.open('POST', '/bug/1542172', true);
             httpRequest.setRequestHeader('Content-Type', 'application/json');
             httpRequest.send(JSON.stringify(data));
@@ -42,3 +48,4 @@
     </script>
 </body>
 </html>
+

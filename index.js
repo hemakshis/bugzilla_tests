@@ -1,13 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const webSocketServer = require('ws').Server;
 
 const PORT = process.env.PORT || 8080;
 
 let app = express();
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false, limit: '10mb'}));
+app.use(bodyParser.json({limit: '10mb'}));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -40,7 +39,8 @@ app.post('/bug/1284488', (req, res) => {
 });
 
 app.post('/bug/1542172', (req, res) => {
-    res.json({success: 'success'});
+    console.log(JSON.stringify(req.body).length/1024);
+    res.json(req.body);
 })
 
 app.listen(PORT, () => {
